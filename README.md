@@ -1,6 +1,8 @@
-# Getting Started with Hilt (Dagger 2)
+# Hilt (Dagger 2)
 
-## Introduction
+## Getting Started with Hilt (Dagger 2)
+
+### Introduction
 - Hilt is a tool built on top of Dagger 2 for dependency injection (DI)
 - Get started setting up Hilt in Android Studio
   - Review documentation
@@ -9,7 +11,7 @@
   - Build a project
   - Beginner to advanced
 
-## What is Dependency Injection (DI)?
+### What is Dependency Injection (DI)?
 - Classes often require references to other classes
   - [Classes (OOP)](https://brilliant.org/wiki/classes-oop/#:~:text=A%20class%20is%20a%20way,Ferrari%2C%20and%20a%20Ford%20instance)
   - E.g., a `Car` class might need a reference to an `Engine` class
@@ -18,7 +20,7 @@
 - Three ways for a class to get an object it needs:
   - Class constructs the dependency it needs
     - E.g., `Car` would create and initialize its own instance of `Engine`
-  - Grab it from somwehere else
+  - Grab it from somewhere else
     - Some Android APIs, such as `Context` getters and `getSystemService()`, work this way
   - **DI**/Have it supplied as a parameter
     - App can provide these dependencies when the class is constructed or pass them in to the functions that need each dependency
@@ -59,7 +61,7 @@
     }
     ```
     - `main` function uses `Car`
-    - `Car` depends on `Engine` &rarr; App creates an instance of `Engine` and then uses it to construct an isntance of `Car`
+    - `Car` depends on `Engine` &rarr; App creates an instance of `Engine` and then uses it to construct an instance of `Car`
   - Benefits of DI-based approach:
     - Reusability of `Car`
       - Can pass in different implementations of `Engine` to `Car`
@@ -72,7 +74,7 @@
   - Ease of refactoring
   - Ease of testing
 
-## Hilt
+### Hilt
 - What is Hilt?
   - Provides a standard way to incorporate Dagger dependency injection into an Android application
 - Goals of Hilt:
@@ -80,7 +82,7 @@
   - Create a standard set of components and scopes to ease setup, readability/understanding, and code sharing between apps
   - Provide an easy way to provision different bindings to various build types (e.g. testing, debug, or release)
 
-## Getting Started in Android Studio
+### Getting Started in Android Studio
 - Create a new project
   - New Project > Phone and Tablet > Empty Activity and click "Next"
   - Give the project a name, e.g. "MVIDaggerHilt", and click "Finish"
@@ -95,4 +97,15 @@
         correctErrorTypes = true
       }
       ```
-- Hilt 
+- Hilt application class
+  - All apps that use Hilt must contain an `Application` class that is annotated with `@HiltAndroidApp`
+  - `@HiltAndroidApp` triggers Hilt's code generation, including a base class for your application that serves as the application-level dependency container
+  - ```
+    @HiltAndroidApp
+    class ExampleApplication : Application() { ... }
+    ```
+    - Generated Hilt component that is attached to the `Application` object's lifecycle and provides dependencies to it
+    - Parent component of the app &rarr; Other components can access the dependencies that it provides
+  - Create a new class in `app > src > main > java > package name` and call it whatever you want
+    - Extends Application
+  - If you go to Build > Rebuild Project, then Hilt will generate the app component and prepare everything needed to use Hilt in the app
